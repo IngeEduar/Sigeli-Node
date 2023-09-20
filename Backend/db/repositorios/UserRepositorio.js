@@ -8,4 +8,16 @@ const verUsuarios = () => {
     return usuarios
 }
 
-export default {crearUsuario, verUsuarios}
+const findByUsername = (username) => {
+    const usuario = usuarios.find(usuario=>usuario.username=username);
+
+    return usuario ?? null
+}
+
+const findByEmail = (email) => {
+    const usuario = usuarios.find(usuario=>usuario.email=email);
+
+    return usuario ?? null
+}
+
+export default {crearUsuario, verUsuarios, findByUsername, findByEmail}
