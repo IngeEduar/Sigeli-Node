@@ -1,0 +1,16 @@
+.my-card{
+    background-color: rgb(196, 196, 196);
+    border-radius: 20px;
+    min-height: 150px;
+}
+
+.my-column{
+    width: 32%;
+    margin-left: 1.33%;
+}
+
+@media screen and (max-width: 760px) {
+    .my-column{
+        width: 100%;
+    }
+}
