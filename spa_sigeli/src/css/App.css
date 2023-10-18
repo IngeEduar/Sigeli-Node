@@ -28,6 +28,13 @@
   color: #61dafb;
 }
 
+.my-loands-container{
+  background-color: #bebebe;
+  padding: 50px;
+  border-radius: 15px;
+  box-shadow: 10px 10px 15px rgba(43, 42, 42, 0.767);
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

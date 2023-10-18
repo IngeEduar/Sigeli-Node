@@ -1,12 +1,24 @@
 import axios from "axios";
 import { Navegacion } from "../layouts/Navegacion";
+import { Pie } from 'react-chartjs-2';
 import { LOAND_TODAY_GET_ENDPOINT, STAIDSTIC_GET_ENDPOINT } from "../connections/helpers/endpoints";
-import { Col, Container, Row } from "react-bootstrap";
-import '../css/dashboard.css';
 import { useState, useEffect } from "react";
+import { Col, Container, Row } from "react-bootstrap";
+import 'chart.js/auto';
+import '../css/dashboard.css';
+import { LoandCardDashboard } from "../components/loands/LoandCardDashboard";
 
 function Dashboard() {
     const [estadisticas, setEstadisticas] = useState(null);
+    const [labels, setLabels] = useState([]);
+    const [data, setData] = useState([]);
+    const [loandsToday, setLoandsToday] = useState([]);
+
+    useEffect(() => {
+        axios.get(LOAND_TODAY_GET_ENDPOINT).then(response => {
+            setLoandsToday(response.data);
+        })
+    }, [])
 
     useEffect(() => {
         axios.get(STAIDSTIC_GET_ENDPOINT).then(response => {
@@ -14,7 +26,22 @@ function Dashboard() {
         });
     }, []);
 
-    return estadisticas ? (
+    useEffect(() => {
+        const chartLabels = estadisticas ? estadisticas.loandsForCareer.map(career => career.name) : [];
+        const chartData =estadisticas ? estadisticas.loandsForCareer.map(career => career.loands) : []; 
+
+        setLabels(chartLabels);
+        setData(chartData);
+    }, [estadisticas]);
+
+    function getRandomColor() {
+        const r = Math.floor(Math.random() * 128) + 1;
+        const g = Math.floor(Math.random() * 128) + 128; 
+        const b = Math.floor(Math.random() * 128) + 128;
+        return `rgb(${r},${g},${b})`;
+    }
+
+    return (estadisticas) ? (
         <div>
             <Navegacion />
 
@@ -32,7 +59,7 @@ function Dashboard() {
                                 <h4>Multas</h4>
                                 <p>Multas sin pagar: {estadisticas.unpaidFine}</p>
                                 <p>Multas pagas: {estadisticas.paidFine}</p>
-                                <p>Promedio de pago de multas: {estadisticas.totalFines}</p>
+                                <p>Total de multas: {estadisticas.totalFines}</p>
                             </Col>
                             <Col lg='12' md='12' sm='12' className='w-100 mt-3 my-card'>
                                 <h4>Pagos</h4>
@@ -43,28 +70,41 @@ function Dashboard() {
                     </Col>
                     <Col lg='4' md='8' sm='12' className="my-column">
                         <Row>
-                            <Col lg='12' md='12' sm='12' className='w-100 mt-3 my-card'>
+                            <Col lg='12' md='12' sm='12' className='w-100 mt-3 my-card my-heigth-card'>
                                 <h4>Prestamos por carrera:</h4>
-                                <ul>
-                                    {estadisticas.loandsForCareer.map((career, index) => (
-                                        <div key={index}>
-                                            <h6>{career.name}</h6>
-                                            <div className="progress" role="progressbar" aria-label="Basic example" aria-valuenow={career.loands} aria-valuemin="0" aria-valuemax="100">
-                                                <div class="progress-bar" style={{width: career.loands+'%'}}></div>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </ul>
+                                <div className="w-100 h-75 d-flex justify-content-center align-items-center">
+                                    <Pie data={{
+                                        labels: labels,
+                                        datasets: [
+                                            {
+                                                data: data,
+                                                backgroundColor: labels.map(() => getRandomColor())
+                                            }
+                                        ]
+                                    }} />
+                                </div>
                             </Col>
                         </Row>
                     </Col>
-                    <Col lg='4' md='8' sm='12' className="my-column">
+                    <Col lg='4' md='8' sm='12' className="my-column my-heigth-card">
                         <Row>
-                            <Col lg='12' md='12' sm='12' className='w-100 mt-3 my-card'>
-                                <h4>Prestamos</h4>
-                                <p>Prestamos sin entregar:</p>
-                                <p>Prestamos entregados:</p>
-                                <p>Total de prestamos:</p>
+                            <Col lg='12' md='12' sm='12' className='w-100 mt-3 my-card my-heigth-card'>
+                                <h4>Prestamos de hoy</h4>
+                                {
+                                    loandsToday ? (
+                                        <div className="my-prestamos-hoy-panel">
+                                            {
+                                                loandsToday.map((loand, index) => ( 
+                                                    <LoandCardDashboard key={index} loand={loand} />
+                                                ))
+                                            }
+                                        </div>
+                                    ) : (
+                                        <div>
+                                            <h6>No hay préstamos para hoy</h6>
+                                        </div>
+                                    )
+                                }
                             </Col>
                         </Row>
                     </Col>
@@ -75,8 +115,8 @@ function Dashboard() {
         <div>
             <Navegacion />
             <div className="d-flex justify-content-center align-items-center" style={{minHeight: '550px'}}>
-                <div class="spinner-border text-danger" style={{width: "50px", minHeight: "50px"}} role="status">
-                    <span class="visually-hidden">Loading...</span>
+                <div className="spinner-border text-danger" style={{width: "50px", minHeight: "50px"}} role="status">
+                    <span className="visually-hidden">Loading...</span>
                 </div>
             </div>
         </div>

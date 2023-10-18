@@ -39,7 +39,7 @@
     height: 33% ;
 }
 
-input[type="text"] {
+.my-form input[type="text"] {
     width: 90%;
     height: 40px;
     border: none;
@@ -47,11 +47,11 @@ input[type="text"] {
     margin-top: 25px;
 }
 
-input::placeholder {
+.my-form input::placeholder {
     color: rgb(190, 188, 188);
 }
 
-input[type="password"] {
+.my-form input[type="password"] {
     width: 90%;
     height: 40px;
     border: none;
@@ -59,20 +59,20 @@ input[type="password"] {
     margin-top: 25px;
 }
 
-input[type="checkbox"] {
+.my-form input[type="checkbox"] {
     border-color: rgb(218, 215, 215);
     height: 13px;
     accent-color: rgb(240, 57, 57);
 }
 
-input:focus {
+.my-form input:focus {
     border-left: 4px solid rgb(240, 57, 57);
     box-shadow: 3px 3px 10px gray;
     border-radius: 0px 10px 10px 0;
     outline: none;
 }
 
-label {
+.my-form label {
     font-size: 10px;
     margin-left: 3px;
     color: rgb(155, 154, 154);

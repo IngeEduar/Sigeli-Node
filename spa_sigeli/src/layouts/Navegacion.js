@@ -22,19 +22,19 @@ function Navegacion() {
                 <Nav.Link as={NavLink} to='/dashboard'><House /> Dashboard</Nav.Link>
 
                 <NavDropdown title={<><JournalBookmark/> Libro</>} id='basic-nav-dropdown'>
-                    <NavDropdown.Item as={NavLink} to='/libros'>Ver libros</NavDropdown.Item>
+                    <NavDropdown.Item as={NavLink} to='/books'>Ver libros</NavDropdown.Item>
                     <NavDropdown.Item href='#'>Crear libro</NavDropdown.Item>
                 </NavDropdown>
 
                 <NavDropdown title={<><BookmarkCheck/> Categoría</>} id='basic-nav-dropdown'>
                     <NavDropdown.Item as={NavLink} to='/categorias'>Ver categorías</NavDropdown.Item>
-                    <NavDropdown.Item href='#'>Añadir categoría</NavDropdown.Item>
+                    <NavDropdown.Item as={NavLink} to='/category/new'>Añadir categoría</NavDropdown.Item>
                 </NavDropdown>
 
                 <NavDropdown title={<><MinecartLoaded /> Prestamos</>} id='basic-nav-dropdown'>
-                    <NavDropdown.Item as={NavLink} to='/verPrestamos'>Ver prestamos</NavDropdown.Item>
+                    <NavDropdown.Item as={NavLink} to='/loands'>Ver prestamos</NavDropdown.Item>
                     <NavDropdown.Item data-bs-toggle="modal" data-bs-target="#prestamo">Prestamos de usuario</NavDropdown.Item>
-                    <NavDropdown.Item href='#'>Crear Prestamos</NavDropdown.Item>
+                    <NavDropdown.Item as={NavLink} to='/loands/new'>Crear Prestamos</NavDropdown.Item>
                 </NavDropdown>
 
                 <NavDropdown title={<><ShieldSlash /> Multas</>} id='basic-nav-dropdown'>
@@ -46,7 +46,7 @@ function Navegacion() {
                 </NavDropdown>
 
                 <NavDropdown title={<>{user} <Person /> </>} id='basic-nav-dropdown'>
-                    <NavDropdown.Item href='#'><Gear /> Cuenta</NavDropdown.Item>
+                    <NavDropdown.Item as={NavLink} to='/config'><Gear /> Cuenta</NavDropdown.Item>
                 </NavDropdown>
                 </Nav>
             </Navbar.Collapse>

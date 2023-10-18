@@ -4,9 +4,51 @@
     min-height: 150px;
 }
 
+.my-heigth-card{
+    height: 500px !important;
+}
+
 .my-column{
     width: 32%;
     margin-left: 1.33%;
+    min-height: 500px;
+}
+
+.my-prestamos-hoy-panel{
+    height: 85%;
+    overflow-y: scroll;
+    padding: 20px;
+}
+
+.my-loand-card-dashboard{
+    padding: 10px;
+    width: 100%;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.555);
+}
+
+.my-book-card{
+    padding: 10px;
+    width: 100%;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.555);
+}
+
+.my-prestamos-hoy-panel::-webkit-scrollbar {
+    width: 12px;
+}
+
+.my-prestamos-hoy-panel::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 5px;
+}
+
+.my-prestamos-hoy-panel::-webkit-scrollbar-thumb {
+    background: rgba(224, 48, 48, 0.5);
+    border-radius: 6px;
+}
+
+/* Estilos cuando el usuario interactúa con el scrollbar */
+.my-prestamos-hoy-panel::-webkit-scrollbar-thumb:hover {
+    background: rgb(224, 48, 48);
 }
 
 @media screen and (max-width: 760px) {
