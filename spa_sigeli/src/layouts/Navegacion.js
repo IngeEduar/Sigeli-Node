@@ -23,7 +23,7 @@ function Navegacion() {
 
                 <NavDropdown title={<><JournalBookmark/> Libro</>} id='basic-nav-dropdown'>
                     <NavDropdown.Item as={NavLink} to='/books'>Ver libros</NavDropdown.Item>
-                    <NavDropdown.Item href='#'>Crear libro</NavDropdown.Item>
+                    <NavDropdown.Item as={NavLink} to='/books/new'>Crear libro</NavDropdown.Item>
                 </NavDropdown>
 
                 <NavDropdown title={<><BookmarkCheck/> Categoría</>} id='basic-nav-dropdown'>

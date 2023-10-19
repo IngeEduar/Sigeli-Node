@@ -9,7 +9,7 @@ function LoandCardDashboard(props) {
             <div className="my-loand-card-dashboard">
                 <b>Usuario: </b><Link to={'/user/' + loand.user.document}>{loand.user.name}</Link>
                 <br/>
-                <b>Libro: </b><Link to={'/book/' + loand.book.isbn}>{loand.book.name}</Link>
+                <b>Libro: </b><Link to={'/books/' + loand.book.isbn}>{loand.book.name}</Link>
                 <br/>
                 <b>Fecha del prestamo: </b>{loand.fechaPrestamo}
             </div>

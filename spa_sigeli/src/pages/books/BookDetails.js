@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { BOOK_DETAILS_GET_ENDPOINT, BOOK_UPDATE_PUT_ENDPOINT} from "../../connections/helpers/endpoints";
+import { BOOK_DELETE_ENDPOINT, BOOK_DETAILS_GET_ENDPOINT, BOOK_UPDATE_PUT_ENDPOINT} from "../../connections/helpers/endpoints";
 import { Navegacion } from "../../layouts/Navegacion";
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 import Swal from "sweetalert2";
@@ -33,11 +33,43 @@ function BookDetails() {
             Swal.fire({
                 icon: 'error',
                 title: 'Error',
-                text: 'Ha ocurrisbno este error: ' + err,
+                text: 'Ha ocurrido este error: ' + err,
             });
         })
 
     };
+
+    const deleteBook = () => {
+        Swal.fire({
+            icon: 'question',
+            title: '¿Seguro de eliminar?',
+            text: 'Está seguro que desea eliminar: ' + bookData.isbn,
+            showCancelButton: true,
+            confirmButtonText: 'Aceptar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axios.delete(BOOK_DELETE_ENDPOINT + isbn).then(response => {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Éxito',
+                        text: 'El libro ha sido eliminado: ' + isbn,
+                    });
+                    navigate('/books')
+                }).catch(err => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Ha ocurrido este error al eliminar el libro: ' + err,
+                    });
+                });
+            }
+        });
+    }
+
+    const prestarLibro = () => {
+        navigate('/loands/new?isbn=' + bookData.isbn);
+    }    
     
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -141,11 +173,19 @@ function BookDetails() {
                                 </Form.Group>
 
                                 <div className="d-flex justify-content-center w-100">
-                                    <Button variant="danger" type="submit" className="mt-5 w-75">
+                                    <Button variant="secondary" type="submit" className="mt-5 w-25 me-2">
                                         Actualizar
                                     </Button>
+
+                                    <Button variant="danger" onClick={deleteBook} className="mt-5 w-25 ms-2 me-2">
+                                        Eliminar
+                                    </Button>
+
+                                    <Button variant="primary" onClick={prestarLibro} className="mt-5 w-25 ms-2 me-2">
+                                        Prestar libro
+                                    </Button>
                                 </div>
-                            </Form>
+                            </Form> 
                         </Col>
                     </Row>
                 </div>
