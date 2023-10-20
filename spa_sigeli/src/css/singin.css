@@ -1,0 +1,109 @@
+.my-fondo {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-image: url('../../public/images/singin/fondo.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    overflow: hidden;
+}
+
+.my-container-form {
+    width: 100%;
+    height: 100%;
+    min-height: 500px;
+    border-radius: 20px;
+    overflow: hidden;
+    background-color: white;
+}
+
+.my-fondo-form {
+    background-image: url('../../public/images/singin/fondoForm.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.my-form {
+    margin-left: 5%;
+}
+
+.my-logo {
+    width: 40%;
+    position: relative;
+    margin-top: 20%;
+}
+
+.my-div-logo {
+    height: 33% ;
+}
+
+.my-form input[type="text"] {
+    width: 90%;
+    height: 40px;
+    border: none;
+    border-left: 4px solid rgb(240, 57, 57);
+    margin-top: 25px;
+}
+
+.my-form input::placeholder {
+    color: rgb(190, 188, 188);
+}
+
+.my-form input[type="password"] {
+    width: 90%;
+    height: 40px;
+    border: none;
+    border-left: 4px solid rgb(240, 57, 57);
+    margin-top: 25px;
+}
+
+.my-form input[type="checkbox"] {
+    border-color: rgb(218, 215, 215);
+    height: 13px;
+    accent-color: rgb(240, 57, 57);
+}
+
+.my-form input:focus {
+    border-left: 4px solid rgb(240, 57, 57);
+    box-shadow: 3px 3px 10px gray;
+    border-radius: 0px 10px 10px 0;
+    outline: none;
+}
+
+.my-form label {
+    font-size: 10px;
+    margin-left: 3px;
+    color: rgb(155, 154, 154);
+    align-items: center;
+}
+
+.my-btn-login {
+    background-color: rgb(240, 57, 57);
+    width: 90%;
+    padding: 5px;
+    border: none;
+    border-radius: 20px;
+    color: white;
+}
+
+@media screen and (max-width: 760px) {
+    .my-fondo-form{
+        display: none;
+    }
+
+    .my-container{
+        display: flex;
+        justify-content: center;
+        margin-left: 7%;
+    }
+}
+
+@media screen and (min-width: 761px) and (max-width: 900px) {
+    .my-container {
+        display: flex;
+        justify-content: center;
+        margin-left: 7%;
+    }
+}
