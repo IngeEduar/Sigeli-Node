@@ -26,14 +26,13 @@ function Navegacion() {
                     <NavDropdown.Item as={NavLink} to='/books/new'>Crear libro</NavDropdown.Item>
                 </NavDropdown>
 
-                <NavDropdown title={<><BookmarkCheck/> Categoría</>} id='basic-nav-dropdown'>
+                {/* <NavDropdown title={<><BookmarkCheck/> Categoría</>} id='basic-nav-dropdown'>
                     <NavDropdown.Item as={NavLink} to='/categorias'>Ver categorías</NavDropdown.Item>
                     <NavDropdown.Item as={NavLink} to='/category/new'>Añadir categoría</NavDropdown.Item>
-                </NavDropdown>
+                </NavDropdown> */}
 
                 <NavDropdown title={<><MinecartLoaded /> Prestamos</>} id='basic-nav-dropdown'>
                     <NavDropdown.Item as={NavLink} to='/loands'>Ver prestamos</NavDropdown.Item>
-                    <NavDropdown.Item data-bs-toggle="modal" data-bs-target="#prestamo">Prestamos de usuario</NavDropdown.Item>
                     <NavDropdown.Item as={NavLink} to='/loands/new'>Crear Prestamos</NavDropdown.Item>
                 </NavDropdown>
 

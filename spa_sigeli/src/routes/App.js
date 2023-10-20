@@ -10,6 +10,9 @@ import { CreateLoand } from '../pages/loands/createLoand';
 import { Books } from '../pages/books/books';
 import { BookDetails } from '../pages/books/BookDetails';
 import { BookCreate } from '../pages/books/BookCreate';
+import { Multas } from '../pages/multas/Multas';
+import { MultaDetails } from '../pages/multas/MultasDetails';
+import { Pagos } from '../pages/pagos/pagos';
 
 function App() {
   return (
@@ -26,6 +29,11 @@ function App() {
           <Route path='/books' element={<Books />} />
           <Route path='/books/:isbn' element={<BookDetails />} />
           <Route path='/books/new' element={<BookCreate />} />
+
+          <Route path='/multas' element={<Multas />} />          
+          <Route path='/multas/:id' element={<MultaDetails />} /> 
+
+          <Route path='/pagos' element={<Pagos />} />         
 
           <Route path='*' element={<Error404 />} />
         </Routes>

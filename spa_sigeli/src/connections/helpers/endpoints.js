@@ -17,4 +17,13 @@ export const BOOK_UPDATE_PUT_ENDPOINT = BASE_URL + '/book/update/';
 export const BOOK_DELETE_ENDPOINT = BASE_URL + '/book/delete/';
 export const BOOK_CREATE_POST_ENDPOINT = BASE_URL + '/book/create/';
 
+export const MULTA_GET_ENDPOINT = BASE_URL + '/multas';
+export const MULTA_QUERY_GET_ENDPOINT = BASE_URL + '/multas/search/';
+export const MULTA_DETAIL_GET_ENDPOINT = BASE_URL + '/multas/details/';
+
+export const PAGO_MULTA_POST_ENDPOINT = BASE_URL + '/pagar/';
+export const PAGO_GET_ENDPOINT = BASE_URL + '/pagos';
+export const PAGO_QUERY_GET_ENDPOINT = BASE_URL + '/pago/search/';
+export const PAGODETAIL_GET_ENDPOINT = BASE_URL + '/pago/details/';
+
 
