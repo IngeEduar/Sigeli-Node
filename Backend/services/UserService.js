@@ -1,6 +1,25 @@
 import UserRepositorio from "../db/repositorios/UserRepositorio.js";
-import crypto from 'crypto';
-import bcrypt from 'bcrypt';
+import crypto from "crypto";
+import bcrypt from "bcrypt";
+
+const verUsuarios = () => {
+    return new Promise((resolver, rechazar) => {
+        resolver(UserRepositorio.verUsuarios())
+    })
+}
+
+const verUsuario = (username) => {
+
+    return new Promise((resolver, rechazar) => {
+        const user = UserRepositorio.findByUsername(username);
+
+        if (user == null) {
+            rechazar('No se ha encontrado el usuario');
+        }
+
+        resolver(user);
+    })
+}
 
 const crearUsuario = (usuario) => {
     return new Promise((resolver, rechazar) => {
@@ -25,31 +44,41 @@ const crearUsuario = (usuario) => {
             rechazar('Este documento ya existe')
         }
 
-        usuario.userId = crypto.randomUUID();
-        usuario.passwordEncoder = bcrypt.passwordEncoder(usuario.password, 10);
-        UserRepositorio.crearUsuario(usuario)
+        usuario.userId = crypto.randomBytes(20).toString('hex');
+        usuario.passwordEncoder = bcrypt.hashSync(usuario.password, 10);
+        let user = UserRepositorio.crearUsuario(usuario)
 
-        resolver(UserRepositorio.findByUsername(usuario.username));
+        resolver(user);
     })
 }
 
-const verUsuarios = () => {
-    return new Promise((resolver, rechazar) => {
-        resolver(UserRepositorio.verUsuarios())
-    })
-}
+const updateUser = (username, user) => {
+    return new Promise ((resolver, rechazar) => {
 
-const verUsuario = (username) => {
+        const userFind = UserRepositorio.findByUsername(username);
 
-    return new Promise((resolver, rechazar) => {
-        user = UserRepositorio.findByUsername(username);
-
-        if (user == null) {
-            rechazar('No se ha encontrado el usuario');
+        if (!userFind) {
+            rechazar("No hay un usuario existente");
         }
 
-        resolver(user)
+        if (user.password) {
+            user.passwordEncoder = bcrypt.hashSync(user.password, 10);
+        }
+
+        resolver(UserRepositorio.updateUser(userFind, user));
     })
 }
 
-export default {crearUsuario, verUsuarios, verUsuario}
+const deleteUser = (username) => {
+    return new Promise ((resolver, rechazar) => {
+        const user = UserRepositorio.findByUsername(username);
+
+        if (!user) {
+            rechazar();
+        }
+
+        resolver(UserRepositorio.deleteUser(username));
+    })
+}
+
+export default {crearUsuario, verUsuarios, verUsuario, updateUser, deleteUser}

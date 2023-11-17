@@ -6,14 +6,17 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node serve.js",
-    "dev": "nodemon serve.js"
+    "start": "set NODE_ENV=.env && node serve.js",
+    "dev": "set NODE_ENV=.env.dev && nodemon serve.js"
   },
   "author": "Eduar",
   "license": "MIT",
   "dependencies": {
     "bcrypt": "^5.1.1",
-    "express": "^4.18.2"
+    "crypto": "^1.0.1",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "mysql": "^2.18.1"
   },
   "devDependencies": {
     "nodemon": "^3.0.1"
