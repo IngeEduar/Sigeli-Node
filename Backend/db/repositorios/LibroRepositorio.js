@@ -1,4 +1,5 @@
 import { LibroDataResModel } from "../../models/LibroModel.js";
+import { conexion } from "../connection/dbConection.js";
 
 const verLibro = async (libroId) => {
     const con = conexion();
@@ -21,7 +22,7 @@ const verLibro = async (libroId) => {
 const crearLibro = async (libro) => {
     const con = conexion();
 
-    const query = 'INSERT INTO libro (isbn, nombre, autor, edicion, creacion, estante, fila, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+    const query = 'INSERT INTO libro (isbn, nombre, autor, edicion, creacion, estante, fila, estado, libroId) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
 
     try {
         const result = await con.query(query, [
@@ -32,9 +33,10 @@ const crearLibro = async (libro) => {
             libro.creacion,
             libro.estante,
             libro.fila,
-            libro.estado
+            libro.estado,
+            libro.libroId
         ]);
-        libro.libroId = result.insertId;
+        libro.id = result.insertId;
         return libro;
     } catch (err) {
         console.error('Error al insertar libro:', err);
@@ -48,7 +50,7 @@ const verLibros = () => {
     return new Promise((resolve, reject) => {
         const con = conexion();
 
-        con.query('SELECT * FROM libro', (error, result) => {
+        con.query('SELECT * FROM libro WHERE estado != 0 LIMIT 10', (error, result) => {
             if (error) {
                 console.error('Error al obtener libros:', error);
                 con.end();
@@ -67,16 +69,13 @@ const actualizarLibro = async (libroId, libroUpdate) => {
 
     return new Promise((resolve, reject) => {
         con.query(
-            'UPDATE libro SET isbn=?, nombre=?, autor=?, edicion=?, creacion=?, estante=?, fila=?, estado=? WHERE libroId=?',
+            'UPDATE libro SET nombre=?, autor=?, edicion=?, estante=?, fila=? WHERE libroId=? AND estado != 0',
             [
-                libroUpdate.isbn,
                 libroUpdate.nombre,
                 libroUpdate.autor,
                 libroUpdate.edicion,
-                libroUpdate.creacion,
                 libroUpdate.estante,
                 libroUpdate.fila,
-                libroUpdate.estado,
                 libroId
             ],
             (error, result) => {
@@ -115,7 +114,7 @@ const filtrarLibros = async (filtro) => {
 
     return new Promise((resolve, reject) => {
         const query =
-            'SELECT * FROM libro WHERE nombre LIKE ? OR isbn LIKE ? OR autor LIKE ?';
+            'SELECT * FROM libro WHERE nombre LIKE ? OR isbn LIKE ? OR autor LIKE ? AND estado != 0 LIMIT 10';
         const searchTerm = `%${filtro}%`;
 
         con.query(query, [searchTerm, searchTerm, searchTerm], (error, result) => {

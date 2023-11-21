@@ -71,6 +71,24 @@ const findByEmail = async (email) => {
     });
 };
 
+const findById = async (userId) => {
+    const con = conexion();
+
+    return new Promise((resolve, reject) => {
+        con.query('SELECT * FROM user WHERE userId = ?', [userId], (error, result) => {
+            if (error) {
+                console.error('Error al buscar usuario por Id:', error);
+                con.end();
+                reject(error);
+            } else {
+                const user = result.length > 0 ? new UserDataResModel(result[0]) : null;
+                con.end();
+                resolve(user);
+            }
+        });
+    });
+};
+
 const updateUser = async (user, userUpdate) => {
     const con = conexion();
 
@@ -134,4 +152,4 @@ const deleteUser = async (username) => {
     });
 };
 
-export default { crearUsuario, verUsuarios, findByUsername, findByEmail, updateUser, deleteUser };
+export default { crearUsuario, verUsuarios, findByUsername, findByEmail, updateUser, deleteUser, findById};

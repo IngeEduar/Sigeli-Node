@@ -1,4 +1,5 @@
 import LibroRepositorio from "../db/repositorios/LibroRepositorio.js";
+import crypto from "crypto";
 
 const verLibros = () => {
     return new Promise((resolver, rechazar) => {
@@ -33,6 +34,7 @@ const crearLibro = (libro) => {
             rechazar('Datos incorrectos');
         }
 
+        libro.libroId = crypto.randomBytes(20).toString('hex');
         let nuevoLibro = LibroRepositorio.crearLibro(libro);
 
         resolver(nuevoLibro);
