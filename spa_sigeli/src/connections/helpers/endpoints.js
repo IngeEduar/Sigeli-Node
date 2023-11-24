@@ -10,12 +10,12 @@ export const LOAND_DETAIL_GET_ENDPOINT = BASE_URL + '/prestamos/';
 export const LOAND_UPDATE_PUT_ENDPOINT = BASE_URL + '/prestamos/update/';
 export const LOAND_CREATE_POST_ENDPOINT = BASE_URL + '/prestamos/create';
 
-export const BOOK_GET_ENDPOINT = BASE_URL + '/book/mostLoand/';
-export const BOOK_QUERY_GET_ENDPOINT = BASE_URL + '/book/search/';
-export const BOOK_DETAILS_GET_ENDPOINT = BASE_URL + '/book/details/';
-export const BOOK_UPDATE_PUT_ENDPOINT = BASE_URL + '/book/update/';
-export const BOOK_DELETE_ENDPOINT = BASE_URL + '/book/delete/';
-export const BOOK_CREATE_POST_ENDPOINT = BASE_URL + '/book/create/';
+export const BOOK_GET_ENDPOINT = BASE_URL + '/libro/get/';
+export const BOOK_QUERY_GET_ENDPOINT = BASE_URL + '/libro/filter/';
+export const BOOK_DETAILS_GET_ENDPOINT = BASE_URL + '/libro/find/';
+export const BOOK_UPDATE_PUT_ENDPOINT = BASE_URL + '/libro/update/';
+export const BOOK_DELETE_ENDPOINT = BASE_URL + '/libro/delete/';
+export const BOOK_CREATE_POST_ENDPOINT = BASE_URL + '/libro/add/';
 
 export const MULTA_GET_ENDPOINT = BASE_URL + '/multas';
 export const MULTA_QUERY_GET_ENDPOINT = BASE_URL + '/multas/search/';

@@ -24,6 +24,7 @@ function BookDetails() {
         e.preventDefault();
         
         axios.put(BOOK_UPDATE_PUT_ENDPOINT + isbn, bookData).then(response => {
+            console.log(response);
             Swal.fire({
                 icon: 'success',
                 title: 'Éxito',
