@@ -33,7 +33,7 @@ router.post("/add", (req, res) => {
             respuestasHttp.exito(req, res, new PrestamoDataResModel(prestamo), 201);
         })
         .catch(err => {
-            respuestasHttp.error(req, res, 'No es posible crear el préstamo', err, 400);
+            respuestasHttp.error(req, res, 'No es posible crear el préstamo, ' + err, err, 400);
         });
 });
 
@@ -41,6 +41,18 @@ router.put("/update/:prestamoId", (req, res) => {
     const prestamoId = req.params.prestamoId;
 
     PrestamoService.actualizarPrestamo(prestamoId, req.body)
+        .then(prestamo => {
+            respuestasHttp.exito(req, res, new PrestamoDataResModel(prestamo), 204);
+        })
+        .catch(err => {
+            respuestasHttp.error(req, res, 'No se ha encontrado el préstamo', err, 400);
+        });
+});
+
+router.put("/entregar/:prestamoId", (req, res) => {
+    const prestamoId = req.params.prestamoId;
+
+    PrestamoService.entregarPrestamo(prestamoId)
         .then(prestamo => {
             respuestasHttp.exito(req, res, new PrestamoDataResModel(prestamo), 204);
         })

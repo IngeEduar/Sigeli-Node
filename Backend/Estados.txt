@@ -1,0 +1,13 @@
+Libro:
+0: no disponible
+1: En stock
+2: prestado
+
+Prestamos:
+1: en curso
+2: entregado
+3: multado
+
+Multas:
+1: creada
+2: paga

@@ -109,6 +109,23 @@ const desactivarLibro = async (libroId) => {
     });
 };
 
+const cambioEstado = async (libroId, estado) => {
+    const con = conexion();
+
+    return new Promise((resolve, reject) => {
+        con.query('UPDATE libro SET estado=? WHERE libroId=?', [estado, libroId], (error, result) => {
+            if (error) {
+                console.error('Error al desactivar libro:', error);
+                con.end();
+                reject(error);
+            } else {
+                con.end();
+                resolve('Libro desactivado');
+            }
+        });
+    });
+};
+
 const filtrarLibros = async (filtro) => {
     const con = conexion();
 
@@ -137,5 +154,6 @@ export default {
     verLibros,
     actualizarLibro,
     desactivarLibro,
-    filtrarLibros
+    filtrarLibros,
+    cambioEstado
 };

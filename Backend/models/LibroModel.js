@@ -10,7 +10,7 @@ function LibroCreateRequestModel (libro) {
 }
 
 function LibroDataResModel (libro) {
-    this.libroId = libro.libroId
+    this.libroId = libro.libroId,
     this.isbn = libro.isbn,
     this.nombre = libro.nombre,
     this.autor = libro.autor,
