@@ -3,6 +3,7 @@ import UserRepositorio from "../db/repositorios/UserRepositorio.js";
 import LibroRepositorio from "../db/repositorios/LibroRepositorio.js";
 import MultaService from '../services/MultaService.js';
 import { PrestamoDataResModel } from "../models/PrestamoModel.js";
+import EmailServices from "../services/EmailServices.js";
 import crypto from "crypto";
 
 const verPrestamos = async () => {
@@ -135,15 +136,20 @@ const buscarPrestamo = async (filtro) => {
 
 const crearPrestamo = async (prestamo) => {
 
-    const libro = await LibroRepositorio.verLibro(prestamo.libro);
+    prestamo.libro = await LibroRepositorio.verLibro(prestamo.libro);
+    prestamo.usuario = (await UserRepositorio.findByDocument(prestamo.usuario));
+
+    console.log(prestamo);
 
     return new Promise((resolve, reject) => {
 
-        if(libro.estado == 1) {
+        if(prestamo.libro.estado == 1) {
 
             prestamo.prestamoId = crypto.randomBytes(20).toString('hex');
 
             LibroRepositorio.cambioEstado(prestamo.libro, 2);
+
+            EmailServices.sendEmailPrestamo(prestamo.usuario.email, prestamo);
 
             resolve(PrestamoRepositorio.crearPrestamo(prestamo));
         }

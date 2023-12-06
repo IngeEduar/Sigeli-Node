@@ -52,10 +52,11 @@ const crearUsuario = (usuario) => {
     })
 }
 
-const updateUser = (username, user) => {
-    return new Promise ((resolver, rechazar) => {
+const updateUser = async (username, user) => {
 
-        const userFind = UserRepositorio.findByUsername(username);
+    const userFind = await UserRepositorio.findByUsername(username);
+
+    return new Promise ((resolver, rechazar) => {
 
         if (!userFind) {
             rechazar("No hay un usuario existente");

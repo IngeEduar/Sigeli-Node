@@ -3,6 +3,8 @@ import PrestamoService from "./PrestamoService.js";
 import MultaRepositorio from "../db/repositorios/MultaRepositorio.js";
 import LibroRepositorio from "../db/repositorios/LibroRepositorio.js";
 import { MultaDataResModel } from "../models/MultaModel.js";
+import EmailServices from "./EmailServices.js";
+import UserRepositorio from "../db/repositorios/UserRepositorio.js";
 import PrestamoRepositorio from "../db/repositorios/PrestamoRepositorio.js";
 
 
@@ -150,6 +152,7 @@ const crearMultas = async () => {
 
     return new Promise ((resolve, reject) => {
         prestamos.map(prestamo => {
+            const usuario = UserRepositorio.findById(prestamo.usuario)
             let multa = {
                 prestamo : prestamo.prestamoId,
                 multaId : crypto.randomBytes(20).toString('hex'),
@@ -159,6 +162,8 @@ const crearMultas = async () => {
 
             MultaRepositorio.crearMulta(multa)
             .then(multa => {
+
+                EmailServices.sendEmailMulta(usuario.email, prestamo);
                 const multaResponse = detalle(multa.multaId);
                 PrestamoRepositorio.cambioEstado(multa.prestamo, 3);
     

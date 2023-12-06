@@ -5,7 +5,7 @@ const detalle = async (multaId, estado) => {
     const con = conexion();
 
     return new Promise ((resolve, reject) => {
-        con.query('SELECT * FROM multas WHERE multaId = ? AND estado = ?', [multaId, estado], (error, result) => {
+        con.query('SELECT * FROM multas WHERE multaId = ?', [multaId, estado], (error, result) => {
             if (error) {
                 console.error('Error al obtener la multa o pago:', error);
                 con.end();
@@ -87,7 +87,7 @@ const buscarMultaOPago = async (filtro, estado) => {
     const con = conexion();
 
     return new Promise((resolve, reject) => {
-        const query = `
+/*        const query = `
             SELECT *
             FROM (
                 SELECT multas.*
@@ -104,6 +104,21 @@ const buscarMultaOPago = async (filtro, estado) => {
                     multas.multaId LIKE ?
             ) AS subconsulta
             WHERE subconsulta.estado = ?
+        `;*/
+
+        const query = `
+            SELECT multas.*
+            FROM multas
+            JOIN prestamo ON multas.prestamo = prestamoId
+            JOIN user ON prestamo.usuario = userId
+            JOIN libro ON prestamo.libro = libroId
+            WHERE
+                user.nombre LIKE ? OR 
+                user.documento LIKE ? OR 
+                libro.isbn LIKE ? OR 
+                libro.nombre LIKE ? OR 
+                prestamo.id LIKE ? OR 
+                multas.multaId LIKE ?
         `;
     
         const searchTerm = `%${filtro}%`;

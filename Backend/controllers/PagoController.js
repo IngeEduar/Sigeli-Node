@@ -1,7 +1,6 @@
 import { Router } from "express";
 import respuestasHttp from "../utils/respuestasHttp.js";
 import MultaService from '../services/MultaService.js';
-import { MultaCreateRequestModel, MultaDataResModel } from "../models/MultaModel.js";
 
 const router = Router();
 

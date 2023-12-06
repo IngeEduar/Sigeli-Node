@@ -28,13 +28,13 @@ const crearLibro = (libro) => {
             !libro.edicion ||
             !libro.creacion ||
             !libro.estante ||
-            !libro.fila ||
-            !libro.estado
+            !libro.fila
         ) {
             rechazar('Datos incorrectos');
         }
 
         libro.libroId = crypto.randomBytes(20).toString('hex');
+        libro.estado = 1;
         let nuevoLibro = LibroRepositorio.crearLibro(libro);
 
         resolver(nuevoLibro);

@@ -19,6 +19,25 @@ const verLibro = async (libroId) => {
     });
 };
 
+const verLibroPorIsbn = async (isbn) => {
+    const con = conexion();
+
+    return new Promise((resolve, reject) => {
+        con.query('SELECT * FROM libro WHERE isbn = ?', [isbn], (error, result) => {
+            if (error) {
+                console.error('Error al obtener libro:', error);
+                con.end();
+                reject(error);
+            } else {
+                const libro = result.length > 0 ? new LibroDataResModel(result[0]) : null;
+                con.end();
+                resolve(libro);
+            }
+        });
+    });
+};
+
+
 const crearLibro = async (libro) => {
     const con = conexion();
 
@@ -50,7 +69,7 @@ const verLibros = () => {
     return new Promise((resolve, reject) => {
         const con = conexion();
 
-        con.query('SELECT * FROM libro WHERE estado != 0 LIMIT 10', (error, result) => {
+        con.query('SELECT * FROM libro WHERE estado = 1 LIMIT 10', (error, result) => {
             if (error) {
                 console.error('Error al obtener libros:', error);
                 con.end();
@@ -155,5 +174,6 @@ export default {
     actualizarLibro,
     desactivarLibro,
     filtrarLibros,
-    cambioEstado
+    cambioEstado,
+    verLibroPorIsbn
 };

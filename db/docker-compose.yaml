@@ -12,3 +12,27 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: sigeli
+    networks:
+      - net
+
+  phpmyadmin:
+    container_name: sigeli-phpmyadmin
+    restart: always
+    image: phpmyadmin
+    ports:
+      - 8080:80
+    networks:
+      - net
+
+  mailhog:
+    container_name: sigeli-mailhog
+    image: mailhog/mailhog
+    ports:
+      - 8025:8025
+      - 1025:1025
+    networks:
+      - net
+
+networks:
+  net:
+    name: net

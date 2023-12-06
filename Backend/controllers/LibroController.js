@@ -28,6 +28,7 @@ router.get("/get", (req, res) => {
 });
 
 router.post("/add", (req, res) => {
+    console.log(req.body);
     LibroService.crearLibro(new LibroCreateRequestModel(req.body))
         .then(libro => {
             respuestasHttp.exito(req, res, new LibroDataResModel(libro), 201);

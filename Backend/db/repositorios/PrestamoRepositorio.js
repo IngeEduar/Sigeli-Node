@@ -21,6 +21,27 @@ const verPrestamos = async () => {
     });
 };
 
+const verPrestamosPorEstado = async (estado) => {
+    const con = conexion();
+
+    return new Promise((resolve, reject) => {
+        const query = 'SELECT p.*, u.nombre as usuarioNombre, l.nombre as libroNombre FROM prestamo p JOIN user u ON p.usuario = u.userId JOIN libro l ON p.libro = l.libroId WHERE p.estado = ?';
+        
+        con.query(query, [estado] , (error, result) => {
+            if (error) {
+                console.error('Error al obtener préstamos:', error);
+                con.end();
+                reject(error);
+            } else {
+                const prestamos = result.map(prestamo => new PrestamoDataResModel(prestamo));
+                con.end();
+                resolve(prestamos);
+            }
+        });
+    });
+};
+
+
 const verPrestamosParaMulta = async () => {
     const con = conexion();
 
@@ -89,14 +110,13 @@ const crearPrestamo = async (prestamo) => {
 
         const query = 'INSERT INTO prestamo (usuario, libro, fechaEntrega, fechaPrestamo, estado, prestamoId) VALUES (?, ?, ?, ?, ?, ?)';
         con.query(query, [
-            prestamo.usuario,
-            prestamo.libro,
+            prestamo.usuario.userId,
+            prestamo.libro.lirboId,
             prestamo.fechaEntrega,
             prestamo.fechaPrestamo,
             prestamo.estado,
             prestamo.prestamoId
         ], (error, result) => {
-            prestamo.id = result.insertId;
 
             const query = 'UPDATE libro SET estado=? WHERE libroId=?';
             con.query(query, [
@@ -221,5 +241,6 @@ export default {
     verPrestamosHoy,
     entregarPrestamo,
     cambioEstado,
-    verPrestamosParaMulta
+    verPrestamosParaMulta,
+    verPrestamosPorEstado
 };
